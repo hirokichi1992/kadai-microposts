@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action:require_user_logged_in , only:[:show, :index]
+  before_action:require_user_logged_in , only:[:show, :index, :followers, :followings]
   
   def index
     @users = User.all.page(params[:page])
@@ -27,9 +27,23 @@ class UsersController < ApplicationController
     end
   end
   
+  def followings
+    @user = User.find(params[:id])
+    @followings = @user.followings.page(params[:page])
+    counts(@user)
+  end
+  
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers.page(params[:page])
+    counts(@user)
+  end
+  
   private
   
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_comfimation)
   end
+  
+  
 end
