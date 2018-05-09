@@ -10,7 +10,7 @@ class MicropostsController < ApplicationController
     else
       @microposts = current_user.feed_microposts.order('created_at DESC').page(params[:page])
       flash[:danger] = 'メッセージの投稿に失敗しました'
-      render 'topppages/index'
+      render 'toppages/index'
     end
   end
 
